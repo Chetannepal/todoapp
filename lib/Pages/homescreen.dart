@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_todo/Pages/login.dart';
 import 'package:my_todo/components/colors.dart';
 import 'package:my_todo/components/db_helper.dart';
 import 'package:my_todo/components/todoitem.dart';
@@ -216,18 +218,29 @@ class _HomeScreenState extends State<HomeScreen> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          IconButton(
-            icon: Icon(Icons.menu, color: ABlack, size: 30),
-            onPressed: () {},
-          ),
-
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: CircleAvatar(
-              radius: 20,
-              foregroundImage: AssetImage('assets/images/img.jpg'),
-              //child: Icon(Icons.person),
+          // IconButton(
+          //   icon: Icon(Icons.menu, color: ABlack, size: 30),
+          //   onPressed: () {},
+          // ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: CircleAvatar(
+                radius: 20,
+                foregroundImage: AssetImage('assets/images/img.jpg'),
+                //child: Icon(Icons.person),
+              ),
             ),
+          ),
+          IconButton(
+            icon: Icon(Icons.logout_outlined),
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Login()),
+              );
+            },
           ),
         ],
       ),
